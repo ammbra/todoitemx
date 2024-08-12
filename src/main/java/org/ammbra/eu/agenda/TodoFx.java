@@ -24,7 +24,6 @@ import org.ammbra.eu.agenda.items.ImageTodoItem;
 import org.ammbra.eu.agenda.items.TodoItem;
 import org.ammbra.eu.agenda.items.URLTodoItem;
 
-import java.awt.*;
 import java.io.File;
 import java.time.LocalDate;
 
@@ -155,7 +154,7 @@ public class TodoFx extends Application {
 		});
 
 
-		HBox inputBox = new HBox(4, titleField, descriptionField, urlField, deadlineField, addImageButton, addBtn);
+		HBox inputBox = new HBox(4, titleField, descriptionField, urlField, deadlineField, addBtn);
 		inputBox.setSpacing(8);
 		inputBox.setPadding(new Insets(10, 10, 10, 10));
 
