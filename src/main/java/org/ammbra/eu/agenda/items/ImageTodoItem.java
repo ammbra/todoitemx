@@ -4,17 +4,14 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 
-public class ImageTodoItem extends TodoItem {
+public class ImageTodoItem extends URLTodoItem {
 
 	private Image image;
 
-	public ImageTodoItem(String title, String description, Image image, LocalDate createdOn, LocalDate deadline) {
-		if (deadline.isBefore(createdOn))
-			throw new IllegalArgumentException("Cannot create item with deadline before its creation date");
-		super(title, description, createdOn, deadline);
+	public ImageTodoItem(String title, String description, String url, Image image, LocalDate createdOn, LocalDate deadline) {
+		super(title, description, url, createdOn, deadline);
 		this.image = image;
 	}
-
 
 	public Image getImage() {
 		return image;

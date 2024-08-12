@@ -1,7 +1,6 @@
 module org.ammbra.eu.agenda.todoitemx {
 	requires javafx.controls;
 	requires javafx.fxml;
-	requires java.desktop;
 	requires java.logging;
 
 
