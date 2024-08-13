@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 
-public class ImageTodoItem extends URLTodoItem {
+public final class ImageTodoItem extends URLTodoItem implements Todo {
 
 	private Image image;
 

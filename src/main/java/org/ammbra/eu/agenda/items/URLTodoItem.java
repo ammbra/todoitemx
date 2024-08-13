@@ -2,7 +2,7 @@ package org.ammbra.eu.agenda.items;
 
 import java.time.LocalDate;
 
-public class URLTodoItem extends TodoItem {
+public non-sealed class URLTodoItem extends TodoItem implements Todo {
 
 	private String url;
 

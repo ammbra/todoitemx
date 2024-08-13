@@ -2,7 +2,7 @@ package org.ammbra.eu.agenda.items;
 
 import java.time.LocalDate;
 
-public abstract class TodoItem {
+public non-sealed abstract class TodoItem implements Todo {
 	private String title;
 	private String description;
 	private LocalDate createdOn;
@@ -44,5 +44,4 @@ public abstract class TodoItem {
 		this.deadline = deadline;
 	}
 
-	public abstract boolean hasAttachment();
 }
