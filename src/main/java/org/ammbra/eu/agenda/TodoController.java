@@ -60,7 +60,7 @@ public class TodoController {
 
 	private final ObservableList<TodoItem> data = FXCollections.observableArrayList(
 			new URLTodoItem("Upgrade to JDK 23", "Upgrade to JDK 23", "https://openjdk.org/projects/jdk/23/", LocalDate.now(), LocalDate.now().plusMonths(1)),
-			new ImageTodoItem("JavaFX Project", "A cool JavaFX Project ", "",  new Image("file:url.png"), LocalDate.now(), LocalDate.now().plusMonths(2))
+			new ImageTodoItem("JavaFX Project", "A cool JavaFX Project ", new Image("file:url.png"), LocalDate.now(), LocalDate.now().plusMonths(2))
 	);
 
 	@FXML
@@ -134,7 +134,7 @@ public class TodoController {
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showOpenDialog(primaryStage);
 			if (file != null) {
-				data.add(new ImageTodoItem(itemTitle.getText(), itemDescription.getText(), itemURL.getText(), new Image(file.toURI().toString()), LocalDate.now(),
+				data.add(new ImageTodoItem(itemTitle.getText(), itemDescription.getText(), new Image(file.toURI().toString()), LocalDate.now(),
 						deadlinePicker.getValue()));
 			}
 		}

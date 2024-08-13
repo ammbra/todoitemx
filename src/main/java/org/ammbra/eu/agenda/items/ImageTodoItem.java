@@ -4,12 +4,12 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 
-public final class ImageTodoItem extends URLTodoItem implements Todo {
+public final class ImageTodoItem extends TodoItem implements Todo {
 
 	private Image image;
 
-	public ImageTodoItem(String title, String description, String url, Image image, LocalDate createdOn, LocalDate deadline) {
-		super(title, description, url, createdOn, deadline);
+	public ImageTodoItem(String title, String description,Image image, LocalDate createdOn, LocalDate deadline) {
+		super(title, description, createdOn, deadline);
 		this.image = image;
 	}
 
