@@ -66,7 +66,7 @@ public class TodoController {
 	@FXML
 	public void initialize() {
 		Callback<TableColumn<TodoItem, LocalDate>, TableCell<TodoItem, LocalDate>> dateCellFactory
-				= (TableColumn<TodoItem, LocalDate> _) -> new DateEditing();
+				= (TableColumn<TodoItem, LocalDate> _) -> new DateEditor();
 		deadline.setCellFactory(dateCellFactory);
 
 		deadlinePicker.setValue(LocalDate.now().plusMonths(1));

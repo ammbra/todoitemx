@@ -7,7 +7,7 @@ import org.ammbra.eu.agenda.items.TodoItem;
 import java.time.LocalDate;
 
 
-public class DateEditing extends TableCell<TodoItem, LocalDate> {
+public class DateEditor extends TableCell<TodoItem, LocalDate> {
 
 	private DatePicker datePicker;
 
