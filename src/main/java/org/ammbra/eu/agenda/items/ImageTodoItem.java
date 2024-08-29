@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 
-public final class ImageTodoItem extends TodoItem implements Todo {
+public final class ImageTodoItem extends TodoItem {
 
 	private Image image;
 
@@ -15,10 +15,5 @@ public final class ImageTodoItem extends TodoItem implements Todo {
 
 	public Image getImage() {
 		return image;
-	}
-
-	@Override
-	public boolean hasAttachment() {
-		return image != null;
 	}
 }

@@ -17,9 +17,4 @@ public non-sealed class URLTodoItem extends TodoItem implements Todo {
 	public String getUrl() {
 		return url;
 	}
-
-	@Override
-	public boolean hasAttachment() {
-		return url != null && !url.isEmpty();
-	}
 }

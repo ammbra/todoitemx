@@ -2,7 +2,7 @@ package org.ammbra.eu.agenda.items;
 
 import java.time.LocalDate;
 
-public non-sealed abstract class TodoItem implements Todo {
+public sealed class TodoItem permits URLTodoItem, ImageTodoItem {
 	private String title;
 	private String description;
 	private LocalDate createdOn;
