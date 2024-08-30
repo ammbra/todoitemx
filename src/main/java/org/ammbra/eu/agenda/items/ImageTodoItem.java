@@ -8,8 +8,10 @@ public final class ImageTodoItem extends TodoItem {
 
 	private Image image;
 
-	public ImageTodoItem(String title, String description,Image image, LocalDate createdOn, LocalDate deadline) {
-		super(title, description, createdOn, deadline);
+	public ImageTodoItem(String title, String description, Image image, String priority, LocalDate createdOn, LocalDate deadline) {
+		if (deadline.isBefore(createdOn))
+			throw new IllegalArgumentException("Cannot create item with deadline before its creation date");
+		super(title, description, priority, createdOn, deadline);
 		this.image = image;
 	}
 

@@ -53,30 +53,52 @@ public class TodoController {
 	private TextField itemURL;
 
 	@FXML
+	private TextField itemPriority;
+
+	@FXML
 	private DatePicker deadlinePicker;
 
 	@FXML
 	private Parent root;
 
 	private final ObservableList<TodoItem> data = FXCollections.observableArrayList(
-			new URLTodoItem("Upgrade to JDK 23", "Upgrade to JDK 23", "https://openjdk.org/projects/jdk/23/", LocalDate.now(), LocalDate.now().plusMonths(1)),
-			new ImageTodoItem("JavaFX Project", "A cool JavaFX Project ", new Image("file:url.png"), LocalDate.now(), LocalDate.now().plusMonths(2))
+			new URLTodoItem("Upgrade to JDK 23", "Upgrade to JDK 23", "https://openjdk.org/projects/jdk/23/", "1", LocalDate.now(), LocalDate.now().plusMonths(1)),
+			new ImageTodoItem("JavaFX Project", "A cool JavaFX Project ", new Image("file:url.png"), "10", LocalDate.now(), LocalDate.now().plusMonths(2))
 	);
 
 	@FXML
 	public void initialize() {
 		Callback<TableColumn<TodoItem, LocalDate>, TableCell<TodoItem, LocalDate>> dateCellFactory
 				= (TableColumn<TodoItem, LocalDate> _) -> new DateEditor();
+
 		deadline.setCellFactory(dateCellFactory);
 
 		deadlinePicker.setValue(LocalDate.now().plusMonths(1));
 
-		image.setCellValueFactory(cellData -> processImage(cellData));
+		itemPriority.textProperty().addListener((_, _, newValue) -> {
+			if (!newValue.matches("\\d*")) {
+				itemPriority.setText(newValue.replaceAll("[^\\d]", ""));
+			}
+			String style = (!newValue.isEmpty())  ? processColor(newValue) : "";
+			itemPriority.setStyle(style);
+		});
+
+		image.setCellValueFactory(TodoController::processImage);
 
 		remove.setCellFactory(_ -> deleteItem());
 
 		table.setItems(data);
 
+	}
+
+	private String processColor(String newValue) {
+		return switch (Integer.parseInt(newValue)) {
+				case 0 -> "-fx-background-processColor: red;";
+				case int v when (v >= 1 && v <= 3) ->  "-fx-background-color: lightcoral;";
+				case int v when (v >= 4 && v <= 7) ->  "-fx-background-color: lightyellow;";
+				case int v when (v >= 8 && v <= 10) ->  "-fx-background-color: lightgreen;";
+				case int _ -> "-fx-background-processColor: red;";
+			};
 	}
 
 	private static SimpleObjectProperty<ImageView> processImage(TableColumn.CellDataFeatures<TodoItem, ImageView> cellData) {
@@ -114,33 +136,36 @@ public class TodoController {
 	}
 
 	public void handleTitle(TableColumn.CellEditEvent<TodoItem, String> cellEditEvent) {
-		cellEditEvent.getTableView().getItems().get(
-				cellEditEvent.getTablePosition().getRow())
+		int row = cellEditEvent.getTablePosition().getRow();
+		cellEditEvent.getTableView().getItems().get(row)
 				.setTitle(cellEditEvent.getNewValue());
 
 	}
 
 	public void handleDescripion(TableColumn.CellEditEvent<TodoItem, String> cellEditEvent) {
-		cellEditEvent.getTableView().getItems().get(
-				cellEditEvent.getTablePosition().getRow()).setDescription(cellEditEvent.getNewValue());
+		int row = cellEditEvent.getTablePosition().getRow();
+		cellEditEvent.getTableView().getItems().get(row)
+				.setDescription(cellEditEvent.getNewValue());
 
 	}
 
 	public void addItem() {
+		System.out.println(Integer.parseInt(itemPriority.getText()));
 		if (!itemURL.getText().isEmpty()) {
-			data.add(new URLTodoItem(itemTitle.getText(), itemDescription.getText(), itemURL.getText(), LocalDate.now(), deadlinePicker.getValue()));
+			data.add(new URLTodoItem(itemTitle.getText(), itemDescription.getText(), itemURL.getText(), itemPriority.getText(), LocalDate.now(), deadlinePicker.getValue()));
 		} else {
 			Stage primaryStage = (Stage) root.getScene().getWindow();
 			FileChooser fileChooser = new FileChooser();
 			File file = fileChooser.showOpenDialog(primaryStage);
 			if (file != null) {
-				data.add(new ImageTodoItem(itemTitle.getText(), itemDescription.getText(), new Image(file.toURI().toString()), LocalDate.now(),
-						deadlinePicker.getValue()));
+				data.add(new ImageTodoItem(itemTitle.getText(), itemDescription.getText(), new Image(file.toURI().toString()),
+						itemPriority.getText(), LocalDate.now(), deadlinePicker.getValue()));
 			}
 		}
 		itemTitle.clear();
 		itemDescription.clear();
 		itemURL.clear();
+		itemPriority.clear();
 		deadlinePicker.setValue(null);
 	}
 

@@ -11,7 +11,7 @@
     <TableView fx:id="table" editable="true">
         <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/></columnResizePolicy>
         <columns>
-            <TableColumn fx:id="title" text="Title" prefWidth="150" onEditCommit="#handleTitle" >
+            <TableColumn fx:id="title" text="Title" prefWidth="150" onEditCommit="#handleTitle" sortable="true" >
                 <cellValueFactory>
                     <PropertyValueFactory property="title"/>
                 </cellValueFactory>
@@ -30,13 +30,19 @@
                 </cellFactory>
             </TableColumn>
 
-            <TableColumn fx:id="createdOn" text="Created On" prefWidth="100">
+            <TableColumn fx:id="priority" text="Priority" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="priority"/>
+                </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn fx:id="createdOn" text="Created On" prefWidth="100" sortable="true" sortType="ASCENDING">
                 <cellValueFactory>
                     <PropertyValueFactory property="createdOn"/>
                 </cellValueFactory>
             </TableColumn>
 
-            <TableColumn fx:id="deadline" text="Deadline" prefWidth="100">
+            <TableColumn fx:id="deadline" text="Deadline" prefWidth="100" sortable="true">
                 <cellValueFactory>
                     <PropertyValueFactory property="deadline"/>
                 </cellValueFactory>
@@ -65,6 +71,7 @@
         <TextField fx:id="itemTitle" promptText="Enter title"/>
         <TextField fx:id="itemDescription" promptText="Enter description"/>
         <TextField fx:id="itemURL" promptText="Enter URL (optional)"/>
+        <TextField fx:id="itemPriority" promptText="Enter a value 1-10"/>
         <DatePicker fx:id="deadlinePicker" promptText="Select deadline"/>
         <Button text="Add" onAction="#addItem"/>
     </HBox>
