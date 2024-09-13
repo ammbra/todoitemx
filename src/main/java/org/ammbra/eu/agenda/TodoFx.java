@@ -15,8 +15,8 @@ import java.util.Objects;
 
 public class TodoFx extends Application {
 
-	void main(String[] args) {
-		launch(args);
+	void main() {
+		launch();
 	}
 
 	@Override

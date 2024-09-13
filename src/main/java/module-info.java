@@ -1,7 +1,8 @@
-module org.ammbra.eu.agenda.todoitemx {
+module org.ammbra.eu.agenda {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires java.logging;
+	requires jdk.unsupported;
 
 
 	opens org.ammbra.eu.agenda to javafx.fxml;

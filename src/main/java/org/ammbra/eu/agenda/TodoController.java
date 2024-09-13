@@ -2,6 +2,7 @@ package org.ammbra.eu.agenda;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -28,6 +29,9 @@ public class TodoController {
 
 	@FXML
 	private TableColumn<TodoItem, String> description;
+
+	@FXML
+	private TableColumn<TodoItem, String> priority;
 
 	@FXML
 	private TableColumn<TodoItem, LocalDate> createdOn;
@@ -75,12 +79,12 @@ public class TodoController {
 
 		deadlinePicker.setValue(LocalDate.now().plusMonths(1));
 
+		priority.setCellFactory(new PriorityCellCallback());
+
 		itemPriority.textProperty().addListener((_, _, newValue) -> {
 			if (!newValue.matches("\\d*")) {
 				itemPriority.setText(newValue.replaceAll("[^\\d]", ""));
 			}
-			String style = (!newValue.isEmpty())  ? processColor(newValue) : "";
-			itemPriority.setStyle(style);
 		});
 
 		image.setCellValueFactory(TodoController::processImage);
@@ -89,16 +93,6 @@ public class TodoController {
 
 		table.setItems(data);
 
-	}
-
-	private String processColor(String newValue) {
-		return switch (Integer.parseInt(newValue)) {
-				case 0 -> "-fx-background-processColor: red;";
-				case int v when (v >= 1 && v <= 3) ->  "-fx-background-color: lightcoral;";
-				case int v when (v >= 4 && v <= 7) ->  "-fx-background-color: lightyellow;";
-				case int v when (v >= 8 && v <= 10) ->  "-fx-background-color: lightgreen;";
-				case int _ -> "-fx-background-processColor: red;";
-			};
 	}
 
 	private static SimpleObjectProperty<ImageView> processImage(TableColumn.CellDataFeatures<TodoItem, ImageView> cellData) {
