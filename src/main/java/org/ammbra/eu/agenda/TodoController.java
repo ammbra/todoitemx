@@ -18,21 +18,7 @@ public class TodoController {
 	private TableView<TodoItem> table;
 
 	@FXML
-	private TableColumn<TodoItem, String> title;
-
-	@FXML
-	private TableColumn<TodoItem, String> description;
-
-	@FXML
-	private TableColumn<TodoItem, String> priority;
-
-	@FXML
-	private TableColumn<TodoItem, LocalDate> createdOn;
-
-	@FXML
 	private TableColumn<TodoItem, LocalDate> deadline;
-	@FXML
-	private TableColumn<TodoItem, String> url;
 
 	@FXML
 	private TableColumn<TodoItem, ImageView> image;
