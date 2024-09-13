@@ -2,7 +2,6 @@ package org.ammbra.eu.agenda;
 
 import java.io.File;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -25,21 +24,10 @@ public class TodoController {
 	private TableView<TodoItem> table;
 
 	@FXML
-	private TableColumn<TodoItem, String> title;
-
-	@FXML
-	private TableColumn<TodoItem, String> description;
-
-	@FXML
 	private TableColumn<TodoItem, String> priority;
 
 	@FXML
-	private TableColumn<TodoItem, LocalDate> createdOn;
-
-	@FXML
 	private TableColumn<TodoItem, LocalDate> deadline;
-	@FXML
-	private TableColumn<TodoItem, String> url;
 
 	@FXML
 	private TableColumn<TodoItem, ImageView> image;
@@ -83,7 +71,7 @@ public class TodoController {
 
 		itemPriority.textProperty().addListener((_, _, newValue) -> {
 			if (!newValue.matches("\\d*")) {
-				itemPriority.setText(newValue.replaceAll("[^\\d]", ""));
+				itemPriority.setText(newValue.replaceAll("\\D", ""));
 			}
 		});
 
@@ -144,7 +132,6 @@ public class TodoController {
 	}
 
 	public void addItem() {
-		System.out.println(Integer.parseInt(itemPriority.getText()));
 		if (!itemURL.getText().isEmpty()) {
 			data.add(new URLTodoItem(itemTitle.getText(), itemDescription.getText(), itemURL.getText(), itemPriority.getText(), LocalDate.now(), deadlinePicker.getValue()));
 		} else {

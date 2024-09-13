@@ -19,6 +19,9 @@ public class PriorityCellCallback implements Callback<TableColumn<TodoItem, Stri
 					String style = processColor(value);
 					setText(value);
 					setStyle(style);
+				} else {
+					setText("");
+					setStyle("");
 				}
 			}
 		};
