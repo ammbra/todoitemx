@@ -10,7 +10,7 @@ import java.util.Objects;
 public class PriorityCellCallback implements Callback<TableColumn<TodoItem, String>, TableCell<TodoItem, String>> {
 
 	@Override
-	public TableCell<TodoItem, String> call(TableColumn<TodoItem, String> todoItemStringTableColumn) {
+	public TableCell<TodoItem, String> call(TableColumn<TodoItem, String> cellData) {
 		return new TableCell<>() {
 			@Override
 			protected void updateItem(String value, boolean b) {
