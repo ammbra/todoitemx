@@ -9,10 +9,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-//import module javafx.controls;
-//import module javafx.fxml;
-//import module java.logging;
-
 public class TodoFx extends Application {
 
 	void main() {
