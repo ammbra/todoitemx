@@ -12,7 +12,7 @@ import java.util.Objects;
 public class TodoFx extends Application {
 
 	public static void main(String[] args) {
-		launch(args);
+		launch(args); 
 	}
 
 	@Override

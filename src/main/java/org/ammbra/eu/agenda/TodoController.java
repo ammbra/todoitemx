@@ -1,6 +1,10 @@
 package org.ammbra.eu.agenda;
 
+import java.io.File;
 import java.time.LocalDate;
+
+
+import org.ammbra.eu.agenda.items.TodoItem;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -10,12 +14,18 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
-import org.ammbra.eu.agenda.items.TodoItem;
+
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class TodoController {
 
 	@FXML
 	private TableView<TodoItem> table;
+
+	@FXML
+	private TableColumn<TodoItem, String> priority;
 
 	@FXML
 	private TableColumn<TodoItem, LocalDate> deadline;
@@ -45,8 +55,8 @@ public class TodoController {
 	private Parent root;
 
 	private final ObservableList<TodoItem> data = FXCollections.observableArrayList(
-//			new URLTodoItem("Upgrade to JDK 23", "Upgrade to JDK 23", "https://openjdk.org/projects/jdk/23/", "1", LocalDate.now(), LocalDate.now().plusMonths(1)),
-//			new ImageTodoItem("JavaFX Project", "A cool JavaFX Project ", new Image("file:url.png"), "10", LocalDate.now(), LocalDate.now().plusMonths(2))
+			// new URLTodoItem("Upgrade to JDK 23", "Upgrade to JDK 23", "https://openjdk.org/projects/jdk/23/", "1", LocalDate.now(), LocalDate.now().plusMonths(1)),
+			// new ImageTodoItem("JavaFX Project", "A cool JavaFX Project ", new Image("file:url.png"), "10", LocalDate.now(), LocalDate.now().plusMonths(2))
 	);
 
 	@FXML
@@ -57,6 +67,8 @@ public class TodoController {
 		deadline.setCellFactory(dateCellFactory);
 
 		deadlinePicker.setValue(LocalDate.now().plusMonths(1));
+
+		priority.setCellFactory(new PriorityCellCallback());
 
 		itemPriority.textProperty().addListener((_, _, newValue) -> {
 			if (!newValue.matches("\\d*")) {
@@ -100,13 +112,28 @@ public class TodoController {
 	}
 
 	public void handleTitle(TableColumn.CellEditEvent<TodoItem, String> cellEditEvent) {
+		int row = cellEditEvent.getTablePosition().getRow();
+	    cellEditEvent.getTableView().getItems().get(row)
+						.setTitle(cellEditEvent.getNewValue());
 	}
 
 	public void handleDescripion(TableColumn.CellEditEvent<TodoItem, String> cellEditEvent) {
+		int row = cellEditEvent.getTablePosition().getRow();
+		cellEditEvent.getTableView().getItems().get(row)
+						.setDescription(cellEditEvent.getNewValue());
 	}
 
 	public void addItem() {
-		data.add(new TodoItem());
+		if (!itemURL.getText().isEmpty()) {
+			data.add(new TodoItem(itemTitle.getText(), itemDescription.getText(), itemPriority.getText(), LocalDate.now(), deadlinePicker.getValue()));
+		} else {
+			Stage primaryStage = (Stage) root.getScene().getWindow();
+			FileChooser fileChooser = new FileChooser();
+			File file = fileChooser.showOpenDialog(primaryStage);
+			if (file != null) {
+				data.add(new TodoItem(itemTitle.getText(), itemDescription.getText(), itemPriority.getText(), LocalDate.now(), deadlinePicker.getValue()));
+			}
+		}
 		itemTitle.clear();
 		itemDescription.clear();
 		itemURL.clear();
