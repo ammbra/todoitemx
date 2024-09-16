@@ -48,14 +48,7 @@
                 </cellValueFactory>
             </TableColumn>
 
-            <TableColumn fx:id="url" text="URL" prefWidth="200">
-                <cellValueFactory>
-                    <PropertyValueFactory property="url"/>
-                </cellValueFactory>
-                <cellFactory>
-                    <TextFieldTableCell fx:factory="forTableColumn" />
-                </cellFactory>
-            </TableColumn>
+            <TableColumn fx:id="url" text="URL" prefWidth="200"/>
 
             <TableColumn fx:id="image" text="Image" prefWidth="150" />
 
