@@ -84,8 +84,8 @@ public class TodoController {
 	}
 
 	private static SimpleObjectProperty<ImageView> processImage(TableColumn.CellDataFeatures<TodoItem, ImageView> cellData) {
-		if (cellData.getValue() instanceof ImageTodoItem) {
-			Image image = ((ImageTodoItem) cellData.getValue()).getImage();
+		if (cellData.getValue() instanceof ImageTodoItem item) {
+			Image image = item.getImage();
 			ImageView imageView = new ImageView(image);
 			imageView.setFitHeight(50);
 			imageView.setFitWidth(50);
